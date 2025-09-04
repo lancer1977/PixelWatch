@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.polyhydragames.pixelwatch"
-        minSdk = 33
+        minSdk = 30
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -40,6 +40,8 @@ android {
 }
 
 dependencies {
+
+    implementation("androidx.health:health-services-client:1.1.0-alpha05")
     implementation(libs.play.services.wearable)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
@@ -61,5 +63,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     debugImplementation(libs.androidx.tiles.tooling)
+
     wearApp(project(":wear"))
+
 }

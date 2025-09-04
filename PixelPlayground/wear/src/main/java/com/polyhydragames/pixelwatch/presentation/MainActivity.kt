@@ -5,6 +5,7 @@
 
 package com.polyhydragames.pixelwatch.presentation
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,16 +15,22 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.health.services.client.HealthServices
+import androidx.health.services.client.data.DataType
+import androidx.health.services.client.data.ExerciseType
+import androidx.health.services.client.data.PassiveListenerConfig
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import androidx.wear.tooling.preview.devices.WearDevices
 import com.polyhydragames.pixelwatch.R
+import com.polyhydragames.pixelwatch.complication.LiveHrSession
 import com.polyhydragames.pixelwatch.presentation.theme.PixelPlaygroundTheme
 
 class MainActivity : ComponentActivity() {
@@ -39,7 +46,22 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
+@Composable
+fun HeartRateTile(session: LiveHrSession, modifier: Modifier = Modifier) {
+    val bpm by session.bpm.collectAsState(null)
+    Text(
+        text = bpm?.let { "$it bpm" } ?: "—",
+        modifier = modifier,
+        style = MaterialTheme.typography.display2
+    )
+}
+suspend fun registerPassiveHr(context: Context) {
+    val passive = HealthServices.getClient(context).passiveMonitoringClient
+    val config = PassiveListenerConfig.builder()
+        .setDataTypes(setOf(DataType.HEART_RATE_BPM))
+        .build();
+    passive.setPassiveListenerCallback(config, )
+}
 @Composable
 fun WearApp(greetingName: String) {
     PixelPlaygroundTheme {

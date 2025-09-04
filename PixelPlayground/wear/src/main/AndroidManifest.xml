@@ -4,7 +4,6 @@
     <uses-feature android:name="android.hardware.type.watch" />
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-feature android:name="android.hardware.type.watch" />
 
     <!-- Live heart rate -->
     <uses-permission android:name="android.permission.BODY_SENSORS" />
@@ -13,7 +12,8 @@
     <!-- Recognize workouts, auto-pause, etc. -->
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
     <!-- Needed if you want routes/speed via GPS during exercises -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_HEALTH"/>
+    <uses-feature android:name="android.hardware.sensor.heartrate" android:required="false"/>
 
     <application
         android:allowBackup="true"
@@ -21,14 +21,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.DeviceDefault">
-        <service
-            android:name=".hr.PassiveHrService"
-            android:exported="false"
-            android:foregroundServiceType="health">
-            <intent-filter>
-                <action android:name="androidx.health.services.client.action.PASSIVE_LISTENER" />
-            </intent-filter>
-        </service>
+
         <service
             android:name=".complication.MainComplicationService"
             android:exported="true"

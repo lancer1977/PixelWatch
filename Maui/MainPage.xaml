@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WearHrMaui.MainPage"
+             BackgroundColor="Black"
+             Shell.NavBarIsVisible="False">
+    <Grid RowDefinitions="*,Auto">
+        <VerticalStackLayout
+            VerticalOptions="CenterAndExpand"
+            HorizontalOptions="CenterAndExpand"
+            Spacing="6">
+            <Label x:Name="HrLabel"
+                   Text="--"
+                   FontSize="72"
+                   TextColor="White"
+                   HorizontalTextAlignment="Center"/>
+            <Label x:Name="StatusLabel"
+                   Text="Waiting for sensor..."
+                   FontSize="14"
+                   TextColor="White"
+                   Opacity="0.75"
+                   HorizontalTextAlignment="Center"/>
+        </VerticalStackLayout>
+
+        <Label Grid.Row="1"
+               Margin="0,0,0,4"
+               HorizontalTextAlignment="Center"
+               FontSize="12"
+               TextColor="White"
+               Text="Wear HR via SensorManager"/>
+    </Grid>
+</ContentPage>

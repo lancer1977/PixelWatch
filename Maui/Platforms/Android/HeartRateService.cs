@@ -69,7 +69,7 @@ public sealed class HeartRateService : Java.Lang.Object, IHeartRateService, ISen
     public void OnSensorChanged(SensorEvent? e)
     {
         if (e?.Sensor?.Type != SensorType.HeartRate) return;
-        if (e.Values is { Length: > 0 })
+        if (e.Values.Any())
         {
             var value = (int)Math.Max(0, e.Values[0]);
             HeartRateChanged?.Invoke(this, value);

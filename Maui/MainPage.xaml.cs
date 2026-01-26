@@ -6,10 +6,10 @@ public partial class MainPage : ContentPage
 {
     readonly IHeartRateService _hrService;
 
-    public MainPage()
+    public MainPage( )
     {
         InitializeComponent();
-        _hrService = Application.Current!.Services.GetRequiredService<IHeartRateService>();
+        _hrService = MainApplication.Services.GetRequiredService<IHeartRateService>();
         Loaded += OnLoaded;
         Unloaded += OnUnloaded;
     }

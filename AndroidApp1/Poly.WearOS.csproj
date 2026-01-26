@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		
+		<UseMaui>false</UseMaui>
+		<!-- optional, just to be explicit -->
+ 
+		<TargetFramework>net10.0-android</TargetFramework>
+		<SupportedOSPlatformVersion>24</SupportedOSPlatformVersion>
+		<OutputType>Exe</OutputType>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<ApplicationId>com.polyhydragames.wear</ApplicationId>
+		<ApplicationVersion>1</ApplicationVersion>
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);XA4218</MSBuildWarningsAsMessages>
+		<!--
+      Enables trim analyzers and full trimming during Release mode.
+      To learn more, see: https://learn.microsoft.com/dotnet/core/deploying/trimming/trimming-options#trimming-granularity
+    -->
+		<TrimMode>full</TrimMode>
+		<RuntimeIdentifiers>android-arm</RuntimeIdentifiers>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Xamarin.AndroidX.Wear" Version="1.3.0.10" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Update="HeartRateService.cs">
+			<ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
+		</Compile>
+		<Compile Update="Permissions\PermissionHelper.cs">
+			<ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
+		</Compile>
+	</ItemGroup>
+</Project>

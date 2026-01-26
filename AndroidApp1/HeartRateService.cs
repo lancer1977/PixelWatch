@@ -4,12 +4,11 @@ using Android.Content.PM;
 using Android.Hardware;
 using Android.OS;
 using Android.Runtime;
-using AndroidX.Core.App;
 using AndroidX.Core.Content;
-using WearHrMaui.Platforms.Android.Permissions;
-using WearHrMaui.Services;
+using Poly.WearOS.Permissions;
+using Poly.WearOS.Services;
 
-namespace WearHrMaui.Services;
+namespace Poly.WearOS;
 
 public sealed class HeartRateService : Java.Lang.Object, IHeartRateService, ISensorEventListener
 {
@@ -17,22 +16,25 @@ public sealed class HeartRateService : Java.Lang.Object, IHeartRateService, ISen
 
     SensorManager? _sensorManager;
     Sensor? _hrSensor;
+    private Activity? _activity;
+    public void Initialize(Activity activity)
+    {
+        _activity = activity;
+    }
 
     public async Task<bool> EnsurePermissionAsync()
-    {
-        var activity = Platform.CurrentActivity!;
-        if (ContextCompat.CheckSelfPermission(activity, Manifest.Permission.BodySensors) == Permission.Granted)
+    { 
+        if (ContextCompat.CheckSelfPermission(_activity, Manifest.Permission.BodySensors) == Permission.Granted)
             return true;
 
  
-        bool result = await PermissionHelper.RequestPermissionAsync(activity, Android.Manifest.Permission.BodySensors);
+        bool result = await PermissionHelper.RequestPermissionAsync(_activity, Android.Manifest.Permission.BodySensors);
         return result;
     }
 
     public bool Start()
-    {
-        var activity = Platform.CurrentActivity!;
-        _sensorManager = (SensorManager?)activity.GetSystemService(Context.SensorService);
+    { 
+        _sensorManager = (SensorManager?)_activity.GetSystemService(Context.SensorService);
         _hrSensor = _sensorManager?.GetDefaultSensor(SensorType.HeartRate);
 
         if (_sensorManager is null || _hrSensor is null)

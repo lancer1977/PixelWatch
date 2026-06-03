@@ -1,6 +1,15 @@
 # PixelWatch
 A project focused on PixelWatch.
 
+## Tags
+
+- pixel-watch
+- dotnet
+- docs
+- pixel
+- watch
+- mobile
+
 ## Overview
 This repository contains the PixelWatch project. It is designed to provide robust functionality and seamless integration within its ecosystem.
 
